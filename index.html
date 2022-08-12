@@ -60,40 +60,7 @@
         window.location.replace('https://github.com/tywil7');
     }
 
-    const fetchJira = () => {
-        const bodyData = `{
-    "update": {
-      "description": [
-        {
-          "set": "Bug in business logic"
-        }
-      ]
-    }
-  }`;
-        const url = document.getElementById('url')?.value;
-        const auth = document.getElementById('auth')?.value;
-        if (!url && !auth) {
-            console.log('Nothing was set');
-            return;
-        }
-        fetch(`${url}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Basic ${auth}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: bodyData
-        })
-            .then(response => {
-                console.log(
-                    `Response: ${response.status} ${response.statusText}`
-                );
-                return response.text();
-            })
-            .then(text => { console.log(text); alert('done check console'); })
-            .catch(err => { console.error(err); alert('failed check console'); });
-    }
+
 </script>
 
 <body>
@@ -103,12 +70,13 @@
         <h1 id="avatar-title">Tywil7 Github IO</h1>
     </div>
     <div id="bio">
-        <p>Web Developer Trying to ByPass CORS</p>
-        <div id="form-container">
-            <input id="url" type="text" placeholder="URL">
-            <input id="auth" type="text" placeholder="Basic Authorization">
-            <button onclick="fetchJira()">Connect</button>
-        </div>
+        <p>Web Developer</p>
+        <ul>
+            <li>Learn</li>
+            <li>Practice</li>
+            <li>Rest</li>
+            <li>Repeat</li>
+        </ul>
     </div>
 </body>
 

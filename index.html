@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TyWil7</title>
+</head>
+<style>
+    body {
+        background-color: #B8791A;
+        color: #fcfcfc;
+    }
+
+    #avatar {
+        border-radius: 50%;
+        height: 10rem;
+        width: 10rem;
+        margin: auto;
+        cursor: pointer;
+        box-shadow: 0 4px 8px 0 rgba(253, 250, 250, 0.747), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    #profile {
+        display: grid;
+        justify-content: center;
+    }
+
+    #avatar-title {
+        text-align: center;
+    }
+
+    .floating {
+        animation-name: floating;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        margin-left: 30px;
+        margin-top: 5px;
+    }
+
+    @keyframes floating {
+        0% {
+            transform: translate(0, 0px);
+        }
+
+        50% {
+            transform: translate(0, 5px);
+        }
+
+        100% {
+            transform: translate(0, -0px);
+        }
+    }
+</style>
+<script lang="js">
+    const redirectToGithubProfile = () => {
+        alert('Going to be redirected')
+        window.location.replace('https://github.com/tywil7');
+    }
+
+    const fetchJira = () => {
+        const bodyData = `{
+    "update": {
+      "description": [
+        {
+          "set": "Bug in business logic"
+        }
+      ]
+    }
+  }`;
+        const url = document.getElementById('url')?.value;
+        const auth = document.getElementById('auth')?.value;
+        if (!url && !auth) {
+            console.log('Nothing was set');
+            return;
+        }
+        fetch(`${url}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Basic ${auth}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: bodyData
+        })
+            .then(response => {
+                console.log(
+                    `Response: ${response.status} ${response.statusText}`
+                );
+                return response.text();
+            })
+            .then(text => { console.log(text); alert('done check console'); })
+            .catch(err => { console.error(err); alert('failed check console'); });
+    }
+</script>
+
+<body>
+    <div id="profile">
+        <img onclick="redirectToGithubProfile()" id="avatar" class="floating"
+            src="https://avatars.githubusercontent.com/u/85557690?v=4" alt="TyWil7 Avatar">
+        <h1 id="avatar-title">Tywil7 Github IO</h1>
+    </div>
+    <div id="bio">
+        <p>Web Developer Trying to ByPass CORS</p>
+        <div id="form-container">
+            <input id="url" type="text" placeholder="URL">
+            <input id="auth" type="text" placeholder="Basic Authorization">
+            <button onclick="fetchJira()">Connect</button>
+        </div>
+    </div>
+</body>
+
+</html>
